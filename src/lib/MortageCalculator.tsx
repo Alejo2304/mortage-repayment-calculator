@@ -1,6 +1,6 @@
 function CalculateMonthlyInterestRate(interestRate: number): number{
     return((interestRate/100) / 12);
-    }
+}
 
 function CalculateNumberOfMonthlyPayments(termYears: number): number{
     return (termYears * 12);
@@ -22,7 +22,12 @@ export function CalculateMonthlyPaymentFixedRate(amount: number, termYears: numb
     return ((amount * r * onePlusRPowerN) / (onePlusRPowerN - 1));
 }
 
-export function CalcultaTotalPaymentFixedRate(amount: number, termYears: number, interestRate: number): number{
+export function CalculateTotalPaymentFixedRate(amount: number, termYears: number, interestRate: number): number{
     const monthlyPayment = CalculateMonthlyPaymentFixedRate(amount, termYears, interestRate);
     return (monthlyPayment * CalculateNumberOfMonthlyPayments(termYears));
+}
+
+export function CalculateTotalInterestPaid(amount: number, termYears: number, interestRate: number): number {
+    const totalPaid: number = CalculateTotalPaymentFixedRate(amount, termYears, interestRate);
+    return totalPaid - amount;
 }
