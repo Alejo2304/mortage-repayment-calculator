@@ -19,15 +19,15 @@ export function CalculateMonthlyPaymentFixedRate(amount: number, termYears: numb
         return amount / n; // Sin intereses
     }
 
-    return ((amount * r * onePlusRPowerN) / (onePlusRPowerN - 1));
+    return parseFloat(((amount * r * onePlusRPowerN) / (onePlusRPowerN - 1)).toFixed(2));
 }
 
 export function CalculateTotalPaymentFixedRate(amount: number, termYears: number, interestRate: number): number{
     const monthlyPayment = CalculateMonthlyPaymentFixedRate(amount, termYears, interestRate);
-    return (monthlyPayment * CalculateNumberOfMonthlyPayments(termYears));
+    return parseFloat((monthlyPayment * CalculateNumberOfMonthlyPayments(termYears)).toFixed(2));
 }
 
 export function CalculateTotalInterestPaid(amount: number, termYears: number, interestRate: number): number {
     const totalPaid: number = CalculateTotalPaymentFixedRate(amount, termYears, interestRate);
-    return totalPaid - amount;
+    return parseFloat((totalPaid - amount).toFixed(2));
 }
