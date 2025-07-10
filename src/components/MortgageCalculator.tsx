@@ -1,35 +1,49 @@
 import Form from "./Form.tsx"
+import Result from "./Result.tsx"
 import {CalculateMonthlyPaymentFixedRate, CalculateTotalPaymentFixedRate, CalculateTotalInterestPaid} from "../lib/CalculatorLogic.tsx"
-import { useState } from "react"
-import type { FormData } from "../types.ts"
+import { useState, useEffect } from "react"
+import type { FormData , CalculationResult} from "../types.ts"
 
 
 export default function MortgageCalculator(): React.ReactElement{
     const [formData , setFormData] = useState<FormData>({
-        amount: 0,
-        termYears: 0,
-        interestRate: 0,
+        amount: "",
+        termYears: "",
+        interestRate: "",
         calculationType: "Repayment",
+        formStatus: "empty"
+    });
+
+    const [results, setResults] = useState<CalculationResult>({
+        monthlyRepayment: 0,
+        totalRepayment: 0, 
+        totalInterest: 0,
     });
 
     function calculateResults(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+        e.preventDefault();
 
-    const {amount, termYears, interestRate, calculationType} = formData;
-    if (calculationType === "Repayment"){
-        console.log(CalculateMonthlyPaymentFixedRate(amount, termYears, interestRate));
-        console.log(CalculateTotalPaymentFixedRate(amount, termYears, interestRate));
-    } else {
-        console.log(CalculateMonthlyPaymentFixedRate(amount, termYears, interestRate));
-        console.log(CalculateTotalInterestPaid(amount, termYears, interestRate));
+        // Cambiar el estado a 'submitting' antes de calcular
+        setFormData(prev => ({ ...prev, formStatus: "submitting" }));
+
+        const {amount, termYears, interestRate} = formData;
+        const numAmount = parseFloat(amount);
+        const numTermYears = parseInt(termYears);
+        const numInterestRate = parseFloat(interestRate);
+
+        setResults({
+            monthlyRepayment: CalculateMonthlyPaymentFixedRate(numAmount, numTermYears, numInterestRate),
+            totalRepayment: CalculateTotalPaymentFixedRate(numAmount, numTermYears, numInterestRate),
+            totalInterest: CalculateTotalInterestPaid(numAmount, numTermYears, numInterestRate),
+        })
     }
-    // Add calculation logic here
-}
-
 
     return(
         <div>
             <Form formData={formData} setFormData={setFormData} handleSubmit={calculateResults}/>
+            <Result formData={formData} calculationData={results}/>
         </div>
     );
 }
+
+       
