@@ -1,20 +1,22 @@
-
 import type { FormData } from "../types.ts";
+import FormButton from "./Button.tsx"
 
 type Props = {
     formData: FormData;
-    SetFormData: (data: FormData) => void;
+    setFormData: (data: FormData) => void;
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
-export default function Form({formData}:Props): React.ReactElement{
+
+export default function Form({formData, setFormData, handleSubmit}:Props): React.ReactElement{
     return(
-        <form>
+        <form onSubmit={handleSubmit}>
             <label htmlFor="inputAmount">Mortgage Amount</label>
             <input
                 type="number"
                 id="inputAmount"
                 step="0.01"
                 value={formData.amount}
-                onChange={() => ("test")}
+                onChange={e => setFormData({ ...formData, amount: parseFloat(e.target.value) })}
             />
 
             <label htmlFor="inputTerm">Mortgage Term</label>
@@ -23,7 +25,7 @@ export default function Form({formData}:Props): React.ReactElement{
                 id="inputTerm"
                 step="1"
                 value={formData.termYears}
-                onChange={() => ("test")}
+                onChange={e => setFormData({ ...formData, termYears: parseInt(e.target.value) })}
             />
 
             <label htmlFor="inputInterest">Interest Rate</label>
@@ -32,7 +34,7 @@ export default function Form({formData}:Props): React.ReactElement{
                 id="inputInterest"
                 step="0.01"
                 value={formData.interestRate}
-                onChange={() => ("test")}
+                onChange={e => setFormData({ ...formData, interestRate: parseFloat(e.target.value) })}
             />
 
             <fieldset>
@@ -45,7 +47,7 @@ export default function Form({formData}:Props): React.ReactElement{
                     name="mortgageType"
                     value="Repayment"
                     checked={formData.calculationType === "Repayment"}
-                    onChange={() => ("test")}
+                    onChange={() => setFormData({ ...formData, calculationType: "Repayment" })}
                 />
                 Repayment
                 </label>
@@ -57,11 +59,14 @@ export default function Form({formData}:Props): React.ReactElement{
                     name="mortgageType"
                     value="InterestOnly"
                     checked={formData.calculationType === "InterestOnly"}
-                    onChange={() => ("test")}
+                    onChange={() => setFormData({ ...formData, calculationType: "InterestOnly" })}
                 />
                 Interest Only
                 </label>
             </fieldset>
+
+            <FormButton calculationType={formData.calculationType}/>
+
             </form>
     );
 }
