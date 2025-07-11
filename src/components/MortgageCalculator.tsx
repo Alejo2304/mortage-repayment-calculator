@@ -35,8 +35,23 @@ export default function MortgageCalculator(): React.ReactElement{
             monthlyRepayment: CalculateMonthlyPaymentFixedRate(numAmount, numTermYears, numInterestRate),
             totalRepayment: CalculateTotalPaymentFixedRate(numAmount, numTermYears, numInterestRate),
             totalInterest: CalculateTotalInterestPaid(numAmount, numTermYears, numInterestRate),
-        })
+        });
     }
+    // update formStatus to 'success' with a delay of 500ms
+    useEffect(() => {
+        let timeout: ReturnType<typeof setTimeout> | undefined;
+        setFormData(prev => {
+            if (prev.formStatus === "submitting") {
+                timeout = setTimeout(() => {
+                    setFormData(p => ({ ...p, formStatus: "success" }));
+                }, 500); // 500ms delay
+            }
+            return prev;
+        });
+        return () => {
+            if (timeout) clearTimeout(timeout);
+        };
+    }, [results]);
 
     return(
         <div>
