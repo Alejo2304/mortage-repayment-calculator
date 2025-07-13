@@ -7,13 +7,12 @@ type ButtonProps = {
 };
 
 type TextInputProps = {
-  label: string;
-  id: string;
+  label?: string;
+  id?: string;
   type?: string;
   step?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onTyping?: () => void;
 };
 
 type RadioGroupProps = {
@@ -22,45 +21,77 @@ type RadioGroupProps = {
   options: { label: string; value: string }[];
   selectedValue: string;
   onChange: (value: string) => void;
-  onTyping?: () => void;
 };
 
 export function Button({calculationType, formStatus}: ButtonProps): React.ReactElement {
     const label: string = calculationType === "InterestOnly" ? "Calculate Interests" : "Calculate Repayments";
     const isDisabled: boolean = formStatus === "empty" ? true : false;
     return(
-        <button type="submit" disabled={isDisabled} >
-            <img src={calculatorIcon} alt="Calculator icon"></img> 
-            <span>{label}</span>
+        <button type="submit" disabled={isDisabled} className="flex justify-center items-center bg-lime rounded-xl">
+            <img src={calculatorIcon} alt="Calculator icon" className="flex-1/4 h-[1.5lh]"></img> 
+            <span className="flex-3/4 font-jakarta text-slate-900">{label}</span>
         </button>
     );
 }
 
-
-export function TextInput({ label, id, type = "text", step, value, onChange, onTyping }: TextInputProps) {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (onTyping) onTyping();
-    onChange(e);
-  };
+export function AmountInput({ label="Mortgage Amount", id="amountInput", type = "number", step, value, onChange }: TextInputProps) {
   return (
     <>
       <label htmlFor={id}>{label}</label>
-      <input
-        type={type}
-        id={id}
-        step={step}
-        value={value}
-        onChange={handleChange}
-      />
+      <div className="flex items-center border rounded-lg overflow-hidden bg-white">
+        <span className="px-3 py-2 bg-slate-300 text-slate-500 font-bold">£</span>
+        <input
+          type={type}
+          id={id}
+          step={step}
+          value={value}
+          onChange={onChange}
+        />
+      </div>
     </>
   );
 }
 
-export function RadioGroup({ legend, name, options, selectedValue, onChange, onTyping }: RadioGroupProps) {
-  const handleChange = (value: string) => {
-    if (onTyping) onTyping();
-    onChange(value);
-  };
+export function TermInput({ label="Mortgage Term", id="termInput", type ="number", step, value, onChange }: TextInputProps) {
+  return (
+    <>
+      <label htmlFor={id}>{label}</label>
+      <div className="flex items-center border rounded-lg overflow-hidden bg-white">
+        <input
+          type={type}
+          id={id}
+          step={step}
+          value={value}
+          onChange={onChange}
+        />
+        <span className="px-3 py-2 bg-slate-300 text-slate-500 font-bold">years</span>
+      </div>
+    </>
+  );
+}
+
+export function RateInput({ label="Interest Rate", id="rateInput", type ="number", step, value, onChange }: TextInputProps) {
+  return (
+    <>
+      <label htmlFor={id}>{label}</label>
+      <div className="flex items-center border rounded-lg overflow-hidden bg-white">
+        <input
+          type={type}
+          id={id}
+          step={step}
+          value={value}
+          onChange={onChange}
+        />
+        <span className="px-3 py-2 bg-slate-300 text-slate-500 font-bold">%</span>
+      </div>
+    </>
+  );
+}
+
+
+
+
+export function RadioGroup({ legend, name, options, selectedValue, onChange }: RadioGroupProps) {
   return (
     <fieldset>
       <legend>{legend}</legend>
@@ -72,7 +103,7 @@ export function RadioGroup({ legend, name, options, selectedValue, onChange, onT
             name={name}
             value={opt.value}
             checked={selectedValue === opt.value}
-            onChange={() => handleChange(opt.value)}
+            onChange={() => onChange(opt.value)}
           />
           {opt.label}
         </label>

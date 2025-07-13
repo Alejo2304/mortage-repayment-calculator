@@ -1,5 +1,5 @@
 import type { FormData } from "../types.ts";
-import {Button, TextInput, RadioGroup} from "./FormComponents.tsx"
+import {Button, AmountInput, TermInput, RateInput, RadioGroup} from "./FormComponents.tsx"
 
 
 type Props = {
@@ -12,28 +12,19 @@ export default function Form({formData, setFormData, handleSubmit}:Props): React
     return(
         <form onSubmit={handleSubmit}>
 
-            <TextInput
-                label="Mortgage Amount"
-                id="inputAmount"
-                type="number"
-                step="1.0"
+            <AmountInput
+                step="1"
                 value={formData.amount}
                 onChange={e => setFormData({ ...formData, amount: e.target.value, formStatus: "typing" })}
             />
 
-            <TextInput
-                label="Mortgage Term"
-                id="inputTerm"
-                type="number"
+            <TermInput
                 step="1"
                 value={formData.termYears}
                 onChange={e => setFormData({ ...formData, termYears: e.target.value, formStatus: "typing" })}
             />
 
-            <TextInput
-                label="Interest Rate"
-                id="inputInterest"
-                type="number"
+            <RateInput
                 step="1.0"
                 value={formData.interestRate}
                 onChange={e => setFormData({ ...formData, interestRate: e.target.value, formStatus: "typing" })}
