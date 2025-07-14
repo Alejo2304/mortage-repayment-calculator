@@ -2,7 +2,6 @@
 @import "tailwindcss";
 
 @theme{
---color-lime: hsl(61, 70%, 52%);
 --color-red: hsl(4, 69%, 50%);
 --color-white: hsl(0, 0%, 100%);
 
@@ -11,6 +10,17 @@
 --color-slate-500: hsl(200, 26%, 54%);
 --color-slate-700: hsl(200, 24%, 40%);
 --color-slate-900: hsl(202, 55%, 16%);
+
+--color-lime-100: hsl(61, 70%, 95%);
+--color-lime-200: hsl(61, 70%, 87%);
+--color-lime-300: hsl(61, 70%, 80%);
+--color-lime-500: hsl(61, 70%, 60%);
+--color-lime-700: hsl(61, 70%, 55%);
+--color-lime-900: hsl(61, 70%, 52%);
+--color-lime-950: hsl(61, 70%, 47%);
+--color-lime-1000: hsl(61, 70%, 40%);
+--color-lime-1100:hsl(61, 70%, 35%);
+
 
 --font-jakarta: "Plus Jakarta Sans", sans-serif;
 --font-size-jakarta: 16px;
