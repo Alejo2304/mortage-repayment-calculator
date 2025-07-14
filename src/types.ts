@@ -38,3 +38,8 @@ export type RadioGroupProps = {
   selectedValue: string;
   onChange: (value: string) => void;
 };
+
+export type ResultProps = {
+    formData: FormData
+    calculationData: CalculationResult
+};

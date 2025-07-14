@@ -1,18 +1,9 @@
-import type { CalculationResult, FormData, CalculationType } from "../types.tsx";
+import type { ResultProps} from "../types.tsx";
 import imgResult from "../assets/images/illustration-empty.svg"
 
-type ResultProps = {
-    formData: FormData
-    calculationData: CalculationResult
-}
-
-type calculationTypeProps = {
-    calculationType : CalculationType
-}
-
-function ResultDefault({calculationType}: calculationTypeProps): React.ReactElement{
-    const toCalculate = calculationType === "InterestOnly" ? "calculate interest" : "calculate repayments";
-    const toTotal = calculationType === "InterestOnly" ? "total interest" : "total repayment"
+function ResultDefault({formData}: ResultProps): React.ReactElement{
+    const toCalculate = formData.calculationType === "InterestOnly" ? "calculate interest" : "calculate repayments";
+    const toTotal = formData.calculationType === "InterestOnly" ? "total interest" : "total repayment"
 
     return(
         <div>
@@ -66,7 +57,7 @@ export default function Result({formData, calculationData}: ResultProps): React.
 
     if (formData.formStatus === "empty" || formData.formStatus === "typing" ){
         return(
-            <ResultDefault calculationType={formData.calculationType}/>
+            <ResultDefault formData={formData} calculationData={calculationData}/>
         );
     } else if (formData.formStatus === "submitting"){
         return(
@@ -76,8 +67,7 @@ export default function Result({formData, calculationData}: ResultProps): React.
         return(
             <ResultSuccess formData={formData} calculationData={calculationData}></ResultSuccess>
         )
+    } else{
+        return(<h1> Unexpected error, please reload page.</h1>)
     }
-
-
-    return(<></>);
 }
