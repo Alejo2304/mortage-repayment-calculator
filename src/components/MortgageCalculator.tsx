@@ -54,9 +54,13 @@ export default function MortgageCalculator(): React.ReactElement{
     }, [results]);
 
     return(
-        <div>
-            <Form formData={formData} setFormData={setFormData} handleSubmit={calculateResults}/>
-            <Result formData={formData} calculationData={results}/>
+        <div className="flex flex-col md:flex-row">
+            <div className="flex-2/3 md:flex-1/2">
+                <Form formData={formData} setFormData={setFormData} handleSubmit={calculateResults}/>
+            </div>
+            <div className="flex-1/3 md:flex-1/2">
+                <Result formData={formData} calculationData={results}/>
+            </div>
         </div>
     );
 }
