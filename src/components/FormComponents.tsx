@@ -1,28 +1,5 @@
 import calculatorIcon from "../assets/images/icon-calculator.svg";
-import type { CalculationType, FormStatus } from "../types.ts"
-
-type ButtonProps = {
-    calculationType: CalculationType;
-    formStatus: FormStatus;
-};
-
-type TextInputProps = {
-  label?: string;
-  id?: string;
-  type?: string;
-  step?: string;
-  unit?: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
-
-type RadioGroupProps = {
-  legend: string;
-  name: string;
-  options: { label: string; value: string }[];
-  selectedValue: string;
-  onChange: (value: string) => void;
-};
+import type { ButtonProps, InputProps, RadioGroupProps } from "../types.ts"
 
 export function Button({calculationType, formStatus}: ButtonProps): React.ReactElement {
     const label: string = calculationType === "InterestOnly" ? "Calculate Interests" : "Calculate Repayments";
@@ -35,7 +12,7 @@ export function Button({calculationType, formStatus}: ButtonProps): React.ReactE
     );
 }
 
-export function CurrencyInput({ label="Mortgage Amount", id="amountInput", type = "number",unit="£", step, value, onChange }: TextInputProps) {
+export function CurrencyInput({ label="Mortgage Amount", id="amountInput", type = "number",unit="£", step, value, onChange }: InputProps) {
   return (
     <>
       <label htmlFor={id} className="font-jakarta text-slate-700">{label}</label>
@@ -54,7 +31,7 @@ export function CurrencyInput({ label="Mortgage Amount", id="amountInput", type 
   );
 }
 
-export function NumberInput({ label="Number Input", id="numberInput", type ="number", unit="Number", step, value, onChange }: TextInputProps) {
+export function NumberInput({ label="Number Input", id="numberInput", type ="number", unit="Number", step, value, onChange }: InputProps) {
   return (
     <>
       <label htmlFor={id} className="font-jakarta text-slate-700">{label}</label>
