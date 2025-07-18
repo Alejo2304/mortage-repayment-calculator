@@ -6,10 +6,10 @@ function ResultDefault({formData}: ResultProps): React.ReactElement{
     const toTotal = formData.calculationType === "InterestOnly" ? "total interest" : "total repayment"
 
     return(
-        <div>
-            <img src={imgResult}></img>
-            <h1>Results shown here.</h1>
-            <p> Complete the form and click "<span>{toCalculate}</span>" to see what your {toTotal} would be.</p>        
+        <div className="flex flex-col w-full h-full bg-slate-900 rounded-bl-[4rem] justify-center items-center">
+            <img src={imgResult} className="flex-1/3"></img>
+            <h1 className="flex-1/3 font-jakarta font-semibold text-center text-white text-2xl">Results shown here.</h1>
+            <p className="flex-1/3 font-jakarta text-center text-white"> Complete the form and click "<span>{toCalculate}</span>" to see what your {toTotal} would be.</p>        
         </div>
     );
 }
