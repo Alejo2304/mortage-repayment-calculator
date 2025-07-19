@@ -16,9 +16,9 @@ function ResultDefault({formData}: ResultProps): React.ReactElement{
 
 function ResultSubmitting():React.ReactElement{
     return(
-        <div>
+        <div className="flex flex-col w-full h-full bg-slate-900 rounded-bl-[4rem] justify-center items-center">
             <img src={imgResult}></img>
-            <h1>Calculating results...</h1>        
+            <h1 className="font-jakarta font-semibold text-center text-white text-2xl">Calculating results...</h1>        
         </div>
     );
 }
@@ -31,9 +31,9 @@ function ResultSuccess({formData, calculationData}: ResultProps): React.ReactEle
     const conditionalValue = formData.calculationType === "InterestOnly" ? totalInterest : totalRepayment;
     return(
 
-        <article>
-            <h1>Your results</h1>
-            <p>
+        <div className="flex flex-col w-full h-full bg-slate-900 rounded-bl-[4rem] justify-center items-center">
+            <h1  className="font-jakarta font-semibold text-center text-white text-2xl">Your results</h1>
+            <p   className="font-jakarta font-semibold text-center text-white">
                 Your result are show below based on the information you provided.
                 To adjust the results, edit the form and click "<span>{toCalculate}</span>" again.
             </p>
@@ -49,7 +49,7 @@ function ResultSuccess({formData, calculationData}: ResultProps): React.ReactEle
                     <h2>{conditionalValue}</h2>
                 </div>
             </div>
-        </article>
+        </div>
     );
 }
 
