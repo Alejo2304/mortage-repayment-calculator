@@ -3,14 +3,18 @@ import imgResult from "../assets/images/illustration-empty.svg"
 
 function ResultDefault({formData}: ResultProps): React.ReactElement{
     const toCalculate = formData.calculationType === "InterestOnly" ? "calculate interest" : "calculate repayments";
-    const toTotal = formData.calculationType === "InterestOnly" ? "total interest" : "total repayment"
+    const toTotal = formData.calculationType === "InterestOnly" ? "total interest" : "monthly repayment"
 
     return(
-        <div className="flex flex-col w-full h-full bg-slate-900 rounded-bl-[4rem] justify-center items-center">
-            <img src={imgResult} className="flex-1/3"></img>
-            <h1 className="flex-1/3 font-jakarta font-semibold text-center text-white text-2xl">Results shown here.</h1>
-            <p className="flex-1/3 font-jakarta text-center text-white"> Complete the form and click "<span>{toCalculate}</span>" to see what your {toTotal} would be.</p>        
-        </div>
+        <article className="flex flex-col w-full h-full bg-slate-900 md:rounded-bl-[4rem] justify-center items-center p-6">
+            <div className="flex-1 flex justify-center items-center">
+                <img src={imgResult} className="max-w-full h-auto p-5"></img>
+            </div>
+            <div className="flex-1 text-center space-y-5">
+                <h1 className="font-jakarta font-semibold text-white text-2xl">Results shown here.</h1>
+                <p className="font-jakarta text-center text-slate-400 px-8"> Complete the form and click "<span>{toCalculate}</span>" to see what your {toTotal} would be.</p>        
+            </div>
+        </article>
     );
 }
 
